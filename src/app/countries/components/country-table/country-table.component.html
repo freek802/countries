@@ -1,0 +1,47 @@
+<shared-error-message
+  *ngIf="countries.length === 0; else table"
+></shared-error-message>
+
+<ng-template #table>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Icon</th>
+        <th>Flag</th>
+        <th>Name</th>
+        <th>Population</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let country of countries | orderby : 'name' : 'common';
+          let i = index
+        "
+      >
+        <td>
+          {{ i + 1 }}
+        </td>
+        <td>
+          {{ country.flag }}
+        </td>
+        <td>
+          <img [src]="country.flags.svg" [alt]="country.name.common" />
+        </td>
+        <td>
+          {{ country.name.common }}
+        </td>
+        <td>
+          {{ country.capital }}
+        </td>
+        <td>
+          {{ country.population | number }}
+        </td>
+        <td>
+          <a [routerLink]="['/countries/by', country.cca3]">Info</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
